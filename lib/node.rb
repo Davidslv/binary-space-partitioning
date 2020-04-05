@@ -102,4 +102,30 @@ class Node
       )
     end
   end
+
+  def get_room
+    if !room.nil?
+      return room
+    else
+      left_room = if (!left.nil?)
+        left.get_room
+      end
+
+      right_room = if (!right.nil?)
+        right.get_room
+      end
+
+      if (left_room.nil? && right.room.nil?)
+        return nil
+      elsif right_room.nil?
+        return left_room
+      elsif right_room.nil?
+        return right_room
+      elsif (rand > 0.5)
+        return left_room
+      else
+        return right_room
+      end
+    end
+  end
 end
