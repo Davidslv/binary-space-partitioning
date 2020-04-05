@@ -6,6 +6,9 @@ class Node
   # - does not know about the Tree
   class TooManyChildrenError < StandardError; end
 
+  MINIMUM_NODE_SIZE = 6
+  MAXIMUM_NODE_SIZE = 20
+
   attr_accessor :left, :right
   attr_accessor :parent, :sisters
   attr_accessor :room, :passages
@@ -42,5 +45,40 @@ class Node
   # here it checks wether left and right are nil
   def leaf?
     !(@left && @right)
+  end
+
+  def split!
+    return unless @left.nil? || @right.nil?
+
+    horizontal_split = rand() > 0.5
+
+    if (@width > @height && (@width / @height >= 1.25))
+      horizontal_split = false
+    elsif (@height > @width && @height / @width >= 1.25)
+      horizontal_split = true
+    end
+
+    maximum = (horizontal_split ? @height : @width) - MINIMUM_NODE_SIZE
+
+    # area is too small to continue spliting
+    return false if (maximum <= MINIMUM_NODE_SIZE)
+
+    # determine where to split
+    _split = rand(MINIMUM_NODE_SIZE..maximum)
+
+    if horizontal_split
+      self.left = Node.new(x: x, y: y, width: @width, height: _split)
+      self.right = Node.new(x: x, y: y + _split, width: @width, height: @height - _split)
+    else
+      self.left = Node.new(x: x, y: y, width: _split, height: @height)
+      self.right = Node.new(x: x + _split, y: y, width: @width - _split, height:@height)
+    end
+
+    self.left.parent = self
+    self.right.parent = self
+    self.left.sisters << self.right
+    self.right.sisters << self.left
+
+    return true
   end
 end
