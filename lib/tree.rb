@@ -28,11 +28,11 @@ class Tree
   # 30x30 grid is a huge amount of output to the screen already
   # to avoid getting stuck, do not print the output on the screen.
   # USAGE: tree = Tree.create; false
-  # 480x480 grid creates 6803 nodes
+  # 480x480 grid creates about 6803 nodes
   def self.create
     tree = self.new
 
-    tree.root = Node.new(x: 0, y: 0, width: 480, height: 480)
+    tree.root = Node.new(x: 0, y: 0, width: 25, height: 25)
     tree.nodes.push(tree.root)
 
     did_split = true
@@ -52,6 +52,7 @@ class Tree
         end
       end
 
+    tree.root.create_room
     tree
   end
 end

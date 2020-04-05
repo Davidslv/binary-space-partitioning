@@ -1,3 +1,5 @@
+require_relative 'room'
+
 class Node
   # The node is responsible for itself:
   # - knows which node is its parent
@@ -80,5 +82,24 @@ class Node
     self.right.sisters << self.left
 
     return true
+  end
+
+  def create_room
+    if !left.nil? || !right.nil?
+      if !left.nil?
+        left.create_room
+      end
+
+      if !right.nil?
+        right.create_room
+      end
+    else
+      self.room = Room.new(
+        x: rand(1..(@width - self.x - 1)),  # x - 1 offsets the node x
+        y: rand(1..(@height - self.y - 1)),
+        width: rand(3..(@width - 2)),  # a room can be a minimum of width 3, -2 guarantees it's smaller than node width
+        height: rand(3..(@height -2)), # a room can be a minimum of hight 3, -2 guarantees it's smaller than node height
+      )
+    end
   end
 end
