@@ -18,9 +18,11 @@ class Tree
 
   # root is the first Node
   attr_accessor :root, :nodes
+  attr_reader :value
 
   def initialize
     @root = root
     @nodes = []
+    @value = 't'
   end
 end

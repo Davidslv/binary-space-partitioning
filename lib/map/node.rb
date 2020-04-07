@@ -17,10 +17,12 @@ class Node
 
   # position and area of the node
   attr_reader :x, :y, :width, :height
+  attr_reader :value
 
   def initialize(x:, y:, width:, height:)
     @x, @y = x, y
     @width, @height = width, height
+    @value = '#'
 
     # a node without a parent is considered the root node the parent of all nodes
     # There should only be one in the same tree.
