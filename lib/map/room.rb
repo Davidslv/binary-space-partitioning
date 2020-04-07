@@ -10,5 +10,23 @@ class Room
     @x, @y = x, y
     @width, @height = width, height
     @value = '.'
+
+    puts "room | x: #{x}, y: #{y}, width: #{width}, height: #{height}, value: #{value}"
+  end
+
+  def top
+    @y
+  end
+
+  def left
+    @x
+  end
+
+  def right
+    @x + @width - 1
+  end
+
+  def bottom
+    @y + @height - 1
   end
 end

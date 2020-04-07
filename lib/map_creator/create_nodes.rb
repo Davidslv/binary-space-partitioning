@@ -23,6 +23,7 @@ module MapCreator
             end
           end
         end
+        puts "--------------------------------------------------"
 
       @tree
     end

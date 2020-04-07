@@ -18,22 +18,26 @@ class Node
   # position and area of the node
   attr_reader :x, :y, :width, :height
   attr_reader :value
+  attr_reader :direction
 
-  def initialize(x:, y:, width:, height:)
+  def initialize(x:, y:, width:, height:, direction:)
     @x, @y = x, y
     @width, @height = width, height
     @value = '#'
+    @direction = direction
 
     # a node without a parent is considered the root node the parent of all nodes
     # There should only be one in the same tree.
     @parent = nil
 
     # sister nodes are nodes that are on the *same level* with the same parent
-    @sisters = nil
+    @sister = nil
 
     # passages are connection between two rooms
     # since it's a "walkable" area we can consider passages as rooms
     @passages = []
+
+    puts "node | x: #{x}, y: #{y}, width: #{width}, height: #{height}, direction: #{direction}, value: #{value}"
   end
 
   # naive implementation as this does not check node level
@@ -71,11 +75,11 @@ class Node
     _split = rand(MINIMUM_NODE_SIZE..maximum)
 
     if horizontal_split
-      self.left = Node.new(x: x, y: y, width: @width, height: _split)
-      self.right = Node.new(x: x, y: y + _split, width: @width, height: @height - _split)
+      self.left = Node.new(x: x, y: y, width: @width, height: _split, direction: 'horizontal')
+      self.right = Node.new(x: x, y: y + _split, width: @width, height: @height - _split, direction: 'horizontal')
     else
-      self.left = Node.new(x: x, y: y, width: _split, height: @height)
-      self.right = Node.new(x: x + _split, y: y, width: @width - _split, height:@height)
+      self.left = Node.new(x: x, y: y, width: _split, height: @height, direction: 'vertical')
+      self.right = Node.new(x: x + _split, y: y, width: @width - _split, height:@height, direction: 'vertical')
     end
 
     self.left.parent = self

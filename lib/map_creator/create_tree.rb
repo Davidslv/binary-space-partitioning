@@ -6,7 +6,7 @@ module MapCreator
 
     def call
       tree = Tree.new
-      tree.root = Node.new(x: 0, y: 0, width: @width, height: @height)
+      tree.root = Node.new(x: 0, y: 0, width: @width, height: @height, direction: nil)
       tree.nodes.push(tree.root)
 
       tree

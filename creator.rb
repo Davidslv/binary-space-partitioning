@@ -9,9 +9,13 @@ class Creator
   end
 
   def setup
+    puts ""
+    puts "// Setup ---------------------"
     create_tree
     create_nodes
     create_rooms
+    set_map
+    show_map
   end
 
   private
@@ -26,5 +30,33 @@ class Creator
 
     def create_rooms
       MapCreator::CreateRooms.new(tree: @tree).call
+    end
+
+    def set_map
+      @bitmap = MapCreator::Bitmap.new(width: @width, height: @height)
+
+      @tree.nodes.each do |node|
+        (node.x..node.width - 1).each do |x|
+          (node.y..node.height - 1).each do |y|
+            @bitmap.set(x, y, node.value)
+          rescue NoMethodError => e
+            binding.pry
+          end
+        end
+      end
+
+      @tree.nodes.each do |node|
+        (node.room.x..node.room.width - 1).each do |x|
+          (node.y..node.height - 1).each do |y|
+            @bitmap.set(x, y, node.room.value)
+          rescue NoMethodError => e
+            binding.pry
+          end
+        end
+      end
+    end
+
+    def show_map
+      puts @bitmap.to_s
     end
 end
