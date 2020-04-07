@@ -12,7 +12,7 @@ class Node
   MAXIMUM_NODE_SIZE = 20
 
   attr_accessor :left, :right
-  attr_accessor :parent, :sisters
+  attr_accessor :parent, :sister
   attr_accessor :room, :passages
 
   # position and area of the node
@@ -27,7 +27,7 @@ class Node
     @parent = nil
 
     # sister nodes are nodes that are on the *same level* with the same parent
-    @sisters = []
+    @sisters = nil
 
     # passages are connection between two rooms
     # since it's a "walkable" area we can consider passages as rooms
@@ -39,7 +39,7 @@ class Node
   # see: https://www.geeksforgeeks.org/find-right-sibling-binary-tree-parent-pointers/
   def sister?(node)
     self.parent == node.parent &&
-      node.sisters.include?(self)
+      node.sister == self
   end
 
   # a node without children is called a leaf.
@@ -78,29 +78,10 @@ class Node
 
     self.left.parent = self
     self.right.parent = self
-    self.left.sisters << self.right
-    self.right.sisters << self.left
+    self.left.sister = self.right
+    self.right.sister = self.left
 
     return true
-  end
-
-  def create_room
-    if !left.nil? || !right.nil?
-      if !left.nil?
-        left.create_room
-      end
-
-      if !right.nil?
-        right.create_room
-      end
-    else
-      self.room = Room.new(
-        x: rand(1..(@width - self.x - 1)),  # x - 1 offsets the node x
-        y: rand(1..(@height - self.y - 1)),
-        width: rand(3..(@width - 2)),  # a room can be a minimum of width 3, -2 guarantees it's smaller than node width
-        height: rand(3..(@height -2)), # a room can be a minimum of hight 3, -2 guarantees it's smaller than node height
-      )
-    end
   end
 
   def get_room
