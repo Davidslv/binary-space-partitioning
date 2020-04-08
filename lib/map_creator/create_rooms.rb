@@ -10,7 +10,7 @@ module MapCreator
         while(creating_rooms) do
           creating_rooms = false
 
-          @tree.nodes.each_with_index do |node, index|
+          @tree.nodes.each do |node|
             if node.room.nil?
               # a room can have a minimum width of 3,
               # -2 guarantees it's smaller than node width
@@ -22,14 +22,6 @@ module MapCreator
 
               x = rand(1..(node.width - width - 1).abs)
               y = rand(1..(node.height - height - 1).abs)
-
-              puts "creating rooms (node#{index}): x:#{x}, y: #{y}, width: #{width}, height: #{height}"
-
-              if x.nil?
-                x = rand(1..(node.width - (node.x - 1)).abs)
-              elsif y.nil?
-                y = rand(1..(node.height - (node.y - 1)).abs)
-              end
 
               node.room = Room.new(
                 x: x,

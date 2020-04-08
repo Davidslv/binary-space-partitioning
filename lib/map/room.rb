@@ -1,4 +1,4 @@
-class Room
+class Room < Support::Rectangle
   # x, y are the coordinates of the room location within the node
   # the width and height should not be larger than the respective node's
   # although they can be smaller and positioned anywhere within the node.
@@ -16,12 +16,11 @@ class Room
     puts "room | x: #{x}, y: #{y}, width: #{width}, height: #{height}, value: #{value}" if false
   end
 
-  def center_x
-    (left + (width / 2))
-  end
-
-  def center_y
-    (top + (height / 2))
+  def center
+    [
+      (@x + (@x + @width)) / 2,
+      (@y + (@y + @height)) / 2
+    ]
   end
 
   def top

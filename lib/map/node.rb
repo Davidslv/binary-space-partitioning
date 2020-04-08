@@ -25,6 +25,7 @@ class Node
     @width, @height = width, height
     @value = '#'
     @direction = direction
+    @split_horizontal = false
 
     # a node without a parent is considered the root node the parent of all nodes
     # There should only be one in the same tree.
@@ -56,30 +57,28 @@ class Node
   end
 
   def split!
-    return unless @left.nil? || @right.nil?
-
-    horizontal_split = rand() > 0.5
-
-    if (@width > @height && (@width / @height >= 1.25))
-      horizontal_split = false
-    elsif (@height > @width && @height / @width >= 1.25)
-      horizontal_split = true
+    if !@left.nil? || !@right.nil?
+      return false
     end
 
-    maximum = (horizontal_split ? @height : @width) - MINIMUM_NODE_SIZE
+    if (@width > @height)
+      @split_horizontal = false
+    elsif (@height > @width)
+      @split_horizontal = true
+    end
 
-    # area is too small to continue spliting
-    return false if (maximum <= MINIMUM_NODE_SIZE)
+    maximum = (@split_horizontal ? @height : @width) - MINIMUM_NODE_SIZE
 
-    # determine where to split
-    _split = rand(MINIMUM_NODE_SIZE..maximum)
+    return false if maximum < MINIMUM_NODE_SIZE
 
-    if horizontal_split
-      self.left = Node.new(x: x, y: y, width: @width, height: _split, direction: 'horizontal')
-      self.right = Node.new(x: x, y: y + _split, width: @width, height: @height - _split, direction: 'horizontal')
+    split_number = rand(MINIMUM_NODE_SIZE..maximum)
+
+    if @split_horizontal
+      self.left = Node.new(x: x, y: y, width: @width, height: split_number, direction: 'horizontal')
+      self.right = Node.new(x: x, y: y + split_number, width: @width, height: @height - split_number, direction: 'horizontal')
     else
-      self.left = Node.new(x: x, y: y, width: _split, height: @height, direction: 'vertical')
-      self.right = Node.new(x: x + _split, y: y, width: @width - _split, height:@height, direction: 'vertical')
+      self.left = Node.new(x: x, y: y, width: split_number, height: @height, direction: 'vertical')
+      self.right = Node.new(x: x + split_number, y: y, width: @width - split_number, height: @height, direction: 'vertical')
     end
 
     self.left.parent = self
@@ -88,31 +87,5 @@ class Node
     self.right.sister = self.left
 
     return true
-  end
-
-  def get_room
-    if !room.nil?
-      return room
-    else
-      left_room = if (!left.nil?)
-        left.get_room
-      end
-
-      right_room = if (!right.nil?)
-        right.get_room
-      end
-
-      if (left_room.nil? && right.room.nil?)
-        return nil
-      elsif right_room.nil?
-        return left_room
-      elsif right_room.nil?
-        return right_room
-      elsif (rand > 0.5)
-        return left_room
-      else
-        return right_room
-      end
-    end
   end
 end

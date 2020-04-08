@@ -1,4 +1,6 @@
 module MapCreator
+  require_relative 'support/rectangle'
+
   require_relative 'map'
   require_relative 'map_creator/create_tree'
   require_relative 'map_creator/create_nodes'
