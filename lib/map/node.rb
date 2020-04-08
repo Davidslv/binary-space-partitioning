@@ -67,11 +67,7 @@ class Node
   def split!
     return false if !@left.nil? || !@right.nil?
 
-    if (@width > @height)
-      @split_horizontal = false
-    elsif (@height > @width)
-      @split_horizontal = true
-    end
+    @split_horizontal = (@width / @height) > 1
 
     maximum = (@split_horizontal ? @height : @width) - MINIMUM_NODE_SIZE
 
