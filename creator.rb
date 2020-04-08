@@ -36,29 +36,17 @@ class Creator
       @bitmap = MapCreator::Bitmap.new(width: @width, height: @height)
 
       @tree.nodes.each do |node|
-        sleep 0.05
+        sleep 0.06
         puts ""
         puts @bitmap.to_s
 
-        (node.x..node.width - 1).each do |x|
-          (node.y..node.height - 1).each do |y|
-            @bitmap.set(x, y, node.value)
-          rescue NoMethodError => e
-            binding.pry if false
-          end
-        end
-      end
+        room = node.room
 
-      @tree.nodes.each do |node|
-        sleep 0.05
-        puts ""
-        puts @bitmap.to_s
-
-        (node.room.x..node.room.width - 1).each do |x|
-          (node.y..node.height - 1).each do |y|
-            @bitmap.set(x, y, node.room.value)
+        (room.x1 + 1..room.x2).each do |x|
+          (room.y1 + 1..room.y2).each do |y|
+            @bitmap.set(x, y, room.value)
           rescue NoMethodError, TypeError => e
-            binding.pry if true
+            binding.pry if false
           end
         end
       end

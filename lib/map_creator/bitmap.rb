@@ -1,6 +1,6 @@
 module MapCreator
   class Bitmap
-    DEFAULT_PIXEL_COLOR = '0'.freeze
+    DEFAULT_PIXEL_COLOR = '#'.freeze
 
     def initialize(width:, height:)
       @width, @height = width, height

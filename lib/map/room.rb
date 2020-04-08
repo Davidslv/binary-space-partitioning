@@ -23,19 +23,19 @@ class Room < Support::Rectangle
     ]
   end
 
-  def top
-    @y
-  end
-
-  def left
+  def x1
     @x
   end
 
-  def right
-    @x + @width - 1
+  def x2
+    @x + @width
   end
 
-  def bottom
-    @y + @height - 1
+  def y1
+    @y
+  end
+
+  def y2
+    @y + @height
   end
 end

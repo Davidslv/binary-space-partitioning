@@ -4,7 +4,7 @@ module Support
       @x1 = x
       @y1 = y
       @x2 = x + width
-      @y1 = y + height
+      @y2 = y + height
       @width, @height = width, height
     end
 

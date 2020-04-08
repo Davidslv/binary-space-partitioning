@@ -41,6 +41,22 @@ class Node
     puts "node | x: #{x}, y: #{y}, width: #{width}, height: #{height}, direction: #{direction}, value: #{value}" if false
   end
 
+  def x1
+    @x
+  end
+
+  def x2
+    @x + @width
+  end
+
+  def y1
+    @y
+  end
+
+  def y2
+    @y + @height
+  end
+
   # naive implementation as this does not check node level
   # "sister nodes are nodes that are on the *same level* with the same parent"
   # see: https://www.geeksforgeeks.org/find-right-sibling-binary-tree-parent-pointers/
