@@ -1,3 +1,5 @@
+require_relative 'node'
+
 class Tree
   # A Tree structure is responsible for:
   # - Managing the nodes
@@ -16,9 +18,11 @@ class Tree
 
   # root is the first Node
   attr_accessor :root, :nodes
+  attr_reader :value
 
   def initialize
     @root = root
     @nodes = []
+    @value = 't'
   end
 end

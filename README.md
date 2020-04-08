@@ -23,3 +23,9 @@ References:
   parent.left.leaf?
   parent.right.leaf?
 ```
+
+```
+$ pry -r ./creator.rb
+pry(main)> c = Creator.new(width: 100, height: 100)
+pry(main)> tree = c.setup
+```
