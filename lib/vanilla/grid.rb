@@ -53,6 +53,10 @@ module Vanilla
       @rows * @columns
     end
 
+    def contents_of(cell)
+      " "
+    end
+
     # iterator to loop over cells on the grid
     # some algorithms want to look at cells a row at a time (Sidewinder)
     # others just want to look at cells (Binary Tree)

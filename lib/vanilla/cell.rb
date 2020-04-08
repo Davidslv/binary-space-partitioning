@@ -35,5 +35,29 @@ module Vanilla
       list << east if east
       list << west if west
     end
+
+    def distances
+      distances = Vanilla::CellDistance.new(self)
+      frontier = [ self ]
+
+      # We’re going to keep looping until there are no more cells in the frontier set,
+      # which will mean that we’ve measured the distance of every cell to our root cell.
+      while frontier.any?
+        new_frontier = []
+
+        frontier.each do |cell|
+          cell.links.each do |linked|
+            next if distances[linked]
+
+            distances[linked] = distances[cell] + 1
+            new_frontier << linked
+          end
+        end
+
+        frontier = new_frontier
+      end
+
+      distances
+    end
   end
 end

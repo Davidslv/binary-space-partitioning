@@ -15,7 +15,7 @@ module Vanilla
           row.each do |cell|
             cell = Cell.new(row: -1, column: -1) unless cell
 
-            body = "   "
+            body = " #{@grid.contents_of(cell)} "
             east_boundary = (cell.linked?(cell.east) ? " " : "|")
             top << body << east_boundary
 
