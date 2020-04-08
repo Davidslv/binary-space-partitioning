@@ -1,6 +1,8 @@
 require 'pry'
 
 module Vanilla
+  require_relative 'vanilla/cell_distance'
+
   require_relative 'vanilla/cell'
   require_relative 'vanilla/grid'
   require_relative 'vanilla/output/terminal'
