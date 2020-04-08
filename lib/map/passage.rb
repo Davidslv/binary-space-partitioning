@@ -3,6 +3,9 @@ class Passage
   # attr_accessor :width, :height
   attr_reader :value
 
+  # To build passages, we loop through all the nodes of the tree, connecting each node to its sister.
+  # If the two rooms have face-to-face walls, we can use a straight corridor.
+  # Else we have to use a Z shaped corridor.
   def initialize(room1:, room2:)
     @room1 = room1
     @room2 = room2
@@ -13,6 +16,9 @@ class Passage
     @y = nil
   end
 
+# https://gamedev.stackexchange.com/questions/50570/creating-and-connecting-rooms-for-a-roguelike
+# http://roguebasin.roguelikedevelopment.org/index.php?title=Basic_BSP_Dungeon_generation
+# http://roguelikedeveloper.blogspot.com/2007/11/unangband-dungeon-generation-part-one.html
   def create_connection
     # # right point of room1
     # self.x, self.y = [(room1.x + room1.width + 1), rand(room1.y..room1.height)]

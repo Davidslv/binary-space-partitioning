@@ -37,7 +37,7 @@ class Node
     # since it's a "walkable" area we can consider passages as rooms
     @passages = []
 
-    puts "node | x: #{x}, y: #{y}, width: #{width}, height: #{height}, direction: #{direction}, value: #{value}"
+    puts "node | x: #{x}, y: #{y}, width: #{width}, height: #{height}, direction: #{direction}, value: #{value}" if false
   end
 
   # naive implementation as this does not check node level

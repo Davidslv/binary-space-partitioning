@@ -35,22 +35,24 @@ class Creator
     def set_map
       @bitmap = MapCreator::Bitmap.new(width: @width, height: @height)
 
-      @tree.nodes.each do |node|
+      @tree.nodes.each_with_index do |node, index|
+        next if index.zero?
+
         (node.x..node.width - 1).each do |x|
           (node.y..node.height - 1).each do |y|
             @bitmap.set(x, y, node.value)
           rescue NoMethodError => e
-            binding.pry
+            binding.pry if false
           end
         end
       end
 
-      @tree.nodes.each do |node|
+      @tree.nodes.each_with_index do |node, index|
         (node.room.x..node.room.width - 1).each do |x|
           (node.y..node.height - 1).each do |y|
             @bitmap.set(x, y, node.room.value)
-          rescue NoMethodError => e
-            binding.pry
+          rescue NoMethodError, TypeError => e
+            binding.pry if true
           end
         end
       end

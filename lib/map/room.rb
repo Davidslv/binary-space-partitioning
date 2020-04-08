@@ -6,12 +6,22 @@ class Room
   attr_reader :width, :height
   attr_reader :value
 
+  MINIMUM_SIZE = 3
+
   def initialize(x:, y:, width:, height:)
     @x, @y = x, y
     @width, @height = width, height
     @value = '.'
 
-    puts "room | x: #{x}, y: #{y}, width: #{width}, height: #{height}, value: #{value}"
+    puts "room | x: #{x}, y: #{y}, width: #{width}, height: #{height}, value: #{value}" if false
+  end
+
+  def center_x
+    (left + (width / 2))
+  end
+
+  def center_y
+    (top + (height / 2))
   end
 
   def top
