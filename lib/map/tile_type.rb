@@ -1,6 +1,11 @@
 module Map
   class TileType
-    WALL = '#'.freeze
-    FLOOR = '.'.freeze
+    EMPTY   = ' '.freeze
+    WALL    = '#'.freeze
+    DOOR    = '/'.freeze
+    FLOOR   = '.'.freeze
+    PLAYER  = '@'.freeze
+    STAIRS  = '%'.freeze
+    PASSAGE = '='.freeze
   end
 end

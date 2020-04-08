@@ -6,12 +6,12 @@ class Room < Support::Rectangle
   attr_reader :width, :height
   attr_reader :value
 
-  MINIMUM_SIZE = 3
+  MINIMUM_SIZE = 2
 
-  def initialize(x:, y:, width:, height:)
+  def initialize(x:, y:, width:, height:, value:)
     @x, @y = x, y
     @width, @height = width, height
-    @value = '.'
+    @value = value || '.'
 
     puts "room | x: #{x}, y: #{y}, width: #{width}, height: #{height}, value: #{value}" if false
   end

@@ -49,6 +49,8 @@ class Creator
             binding.pry if false
           end
         end
+
+        puts ""
       end
     end
 

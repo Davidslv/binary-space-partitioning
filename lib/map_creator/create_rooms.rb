@@ -12,22 +12,27 @@ module MapCreator
 
           @tree.nodes.each do |node|
             if node.room.nil?
-              # a room can have a minimum width of 3,
-              # -2 guarantees it's smaller than node width
-              width = rand(Room::MINIMUM_SIZE..(node.width - 2).abs)
+              max_room_width = node.width - (2 * 1)
+              max_room_height = node.height - (2 * 1)
 
-              # a room can be a minimum height of 3,
-              # -2 guarantees it's smaller than node height
-              height = rand(Room::MINIMUM_SIZE..(node.height - 2).abs)
+              # room is too big to fit in this partition
+              # do not create it.
+              return if max_room_width < Room::MINIMUM_SIZE || max_room_height < Room::MINIMUM_SIZE
 
-              x = rand(1..(node.width - width - 1).abs)
-              y = rand(1..(node.height - height - 1).abs)
+              width = rand(Room::MINIMUM_SIZE..max_room_width)
+              height = rand(Room::MINIMUM_SIZE..max_room_height)
+
+              x = node.x + rand(1..(node.width - max_room_width - 1))
+              y = node.y + rand(1..(node.height - max_room_height - 1))
+
+              puts "room| x: #{x}, y: #{y}"
 
               node.room = Room.new(
                 x: x,
                 y: y,
                 width: width,
                 height: height,
+                value: (65 + rand(26)).chr
               )
 
               creating_rooms = true

@@ -25,7 +25,6 @@ class Node
     @width, @height = width, height
     @value = '#'
     @direction = direction
-    @split_horizontal = false
 
     # a node without a parent is considered the root node the parent of all nodes
     # There should only be one in the same tree.
@@ -65,23 +64,10 @@ class Node
       node.sister == self
   end
 
-  # a node without children is called a leaf.
-  # leafs are the last nodes at the bottom of the tree
-  # here it checks wether left and right are nil
-  def leaf?
-    !(@left && @right)
-  end
-
   def split!
-    if !@left.nil? || !@right.nil?
-      return false
-    end
+    return false if !@left.nil? || !@right.nil?
 
-    if (@width > @height)
-      @split_horizontal = false
-    elsif (@height > @width)
-      @split_horizontal = true
-    end
+    @split_horizontal = (@width / @height) > 1
 
     maximum = (@split_horizontal ? @height : @width) - MINIMUM_NODE_SIZE
 
