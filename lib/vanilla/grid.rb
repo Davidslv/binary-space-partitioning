@@ -26,8 +26,8 @@ module Vanilla
 
         cell.north = self[row - 1, col]
         cell.south = self[row + 1, col]
-        cell.east  = self[row, col - 1]
-        cell.west  = self[row, col + 1]
+        cell.west  = self[row, col - 1]
+        cell.east  = self[row, col + 1]
       end
     end
 
@@ -43,10 +43,10 @@ module Vanilla
     end
 
     def random_cell
-      row = rand(rows)
+      row = rand(@rows)
       column = rand(@grid[row].count)
 
-      self[row, colum]
+      self[row, column]
     end
 
     def size
