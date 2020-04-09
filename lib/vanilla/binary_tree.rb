@@ -9,6 +9,8 @@ module Vanilla
 
         cell.link(cell: neighbor) if neighbor
       end
+
+      grid
     end
   end
 end
