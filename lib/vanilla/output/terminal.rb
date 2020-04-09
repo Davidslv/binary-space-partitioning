@@ -13,7 +13,7 @@ module Vanilla
           bottom = "+"
 
           row.each do |cell|
-            cell = Cell.new(row: -1, column: -1) unless cell
+            next unless cell
 
             body = " #{@grid.contents_of(cell)} "
             east_boundary = (cell.linked?(cell.east) ? " " : "|")
