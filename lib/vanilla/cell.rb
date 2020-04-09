@@ -34,6 +34,7 @@ module Vanilla
       list << south if south
       list << east if east
       list << west if west
+      list
     end
 
     def distances
